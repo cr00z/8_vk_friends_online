@@ -18,23 +18,19 @@ def get_online_friends(login, password):
             app_id=APP_ID,
             user_login=login,
             user_password=password,
+            scope='friends'
         )
-        api = vk.API(session, v='5.0')
-        friends_all = api.friends.get(fields='online')
-    except Exception:
+        api = vk.API(session, v='5.92')
+        friends_online_ids = api.friends.getOnline()
+        friends_online = api.users.get(user_ids=friends_online_ids)
+    except vk.exceptions.VkAuthError:
         friends_online = None
-    else:
-        friends_online = []
-        for friend in friends_all['items']:
-            #if friend['online']:
-                friend_info = '{} {}'.format(friend['last_name'], friend['first_name'])
-                friends_online.append(friend_info)
     return friends_online
 
 
 def output_friends_to_console(friends_online):
     for friend in friends_online:
-        print(friend)
+        print('{} {}'.format(friend['last_name'], friend['first_name']))
 
 
 if __name__ == '__main__':
@@ -42,5 +38,5 @@ if __name__ == '__main__':
     password = get_user_password()
     friends_online = get_online_friends(login, password)
     if friends_online is None:
-        exit('Vk API Error')
+        exit('Vk Authorization Error')
     output_friends_to_console(friends_online)

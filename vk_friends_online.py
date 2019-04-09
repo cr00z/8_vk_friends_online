@@ -31,10 +31,11 @@ def get_online_friends(login, password, api_version):
 
 
 def output_friends_to_console(friends_online):
-    if len(friends_online) == 0:
+    if friends_online:
+        for friend in friends_online:
+            print('{} {}'.format(friend['last_name'], friend['first_name']))
+    else:
         print('No friends online')
-    for friend in friends_online:
-        print('{} {}'.format(friend['last_name'], friend['first_name']))
 
 
 if __name__ == '__main__':

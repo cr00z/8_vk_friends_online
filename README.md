@@ -24,7 +24,7 @@ Remember, it is recommended to use [virtualenv/venv](https://devman.org/encyclop
 
 $ python vk_friends_online.py
 User login: +79777777777
-User password: vkcom123
+User password: [hidden input]
 Александров Александр
 Иванов Иван
 Сергеев Сергей
